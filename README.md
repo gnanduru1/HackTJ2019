@@ -1,6 +1,8 @@
 # HackTJ2019
 Facial recognition for classroom attendance
 
+Using [OpenCV](https://opencv.org/)
+
 Members:
 
 * [Ganesh Nanduru](https://github.com/gnanduru1)
