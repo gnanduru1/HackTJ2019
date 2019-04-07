@@ -4,7 +4,7 @@ import pickle
 import time
 import face_recognition
 import imutils
-cascPath = "C:/Users/Srikar/AppData/Local/Programs/Python/Python36/Lib/site-packages/cv2/data/haarcascade_frontalface_default.xml"
+cascPath = "C:/Users/ganes/AppData/Local/Programs/Python/Python36/Lib/site-packages/cv2/data/haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 x,y = 0,0
 video_capture = cv2.VideoCapture(0)
@@ -27,12 +27,17 @@ while True:
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-    if True:
+    cv2.imshow('Video', frame)
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('q'):
+        print("Quitting...")
+        break
+    elif key == ord(' '):
+        print("Detecting contours...")
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         boxes = face_recognition.face_locations(rgb, model = "hog")
         encodings = face_recognition.face_encodings(rgb, boxes)
         names = []
-        print(len(encodings))
         for encoding in encodings:
             matches = face_recognition.compare_faces(data["encodings"], encoding)
             name = "Unknown"
@@ -46,12 +51,12 @@ while True:
 
             name = max(counts, key=counts.get)
             names.append(name)
+        if len(names) == 0:
+            print("No face detected! Please try again.")
+        else:
+            #cv2.putText(frame, str(names), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
+            print("Welcome to class, " + names[0] + ".")
 
-        print(names)
-        if len(names)>0:
 
-            cv2.putText(frame, str(names), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
-        cv2.imshow('Video', frame)
-        cv2.waitKey(1)
 video_capture.release()
 cv2.destroyAllWindows()
