@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import cv2
 #from newface_test import findface
 import pickle
@@ -130,4 +129,3 @@ while True:
 
 video_capture.release()
 cv2.destroyAllWindows()
->>>>>>> 3a35ed4d0dc0ed5abe0206898048cf414390ba4b
